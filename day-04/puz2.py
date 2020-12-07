@@ -79,6 +79,6 @@ for i, line in enumerate(lines):
 
 data.close()
 print("Number of valid 'passports': {}".format(valid))
-print("Number of parsed lines: {}".format(dataLines))
-print("Number of empty lines: {}".format(emptlyLines -1))
-print("Number of total lines: {}".format(len(lines) -1))
+#  print("Number of parsed lines: {}".format(dataLines))
+#  print("Number of empty lines: {}".format(emptlyLines -1))
+#  print("Number of total lines: {}".format(len(lines) -1))

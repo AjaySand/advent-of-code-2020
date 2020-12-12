@@ -1,52 +1,27 @@
 import math
 
-#  testData = open("day-05/testData.txt", "r")
 data = open("day-05/data.txt", "r")
+#  testData = open("day-05/testData.txt", "r")
 #  data = testData
 
-# example: bfffbbf
-# start = 0, end = 127
-# walk steps
-# b -> 64 - 127
-# f -> 64 - 95
-# f -> 64 - 79
-# f -> 64 -  71 (79 - ((79 - 64) // 2))
-# b -> 68 (64 + ((71 - 64) // 2)) - 71
-# b -> 69 (68 + ((71 - 68) // 2)) - 71
-# f -> 70 (69 + ((71 - 69) // 2)) - 70
-
-def walk(path: str, minim:int, maxmum:int, top_str:str) -> int:
+def bi_search(ticket: str, minim:int, maxmum:int, top_str:str) -> int:
     start = minim
     end = maxmum
 
-    for char in path:
+    for char in ticket:
         if(char == top_str):
             start = math.ceil(start + ((end - start) / 2))
         else:
             end = math.ceil(end - ((end - start) / 2))
 
-        #  print("{} ---  start: {}, end: {}".format(char, start, end))
-
-    #  print("\n\n")
     return start
 
 lines = data.readlines()
-highest = 0
+seats = []
 
 for line in lines:
     line = line.strip()
+    seats.append(bi_search(line[:7], 0, 127, 'B') * 8 + bi_search(line[7:len(line)], 0, 7, 'R'))
 
-    row = walk(line[:7], 0, 127, 'B')
-    #  print('row: ', row)
-
-    col = walk(line[7:len(line)], 0, 7, 'R')
-
-    #  print('col: ', col)
-    seat_id = row * 8 + col
-    if(seat_id > highest):
-        highest = seat_id
-
-    print("seat: {}, row: {}, col: {}".format(seat_id, row, col))
-    pass
-
-print("highest: {}".format(highest))
+seats = sorted(seats, reverse=True)
+print(seats[0])
